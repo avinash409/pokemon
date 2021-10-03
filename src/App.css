@@ -39,3 +39,20 @@ figure {
   font-weight: bold;
   padding: 5px;
 }
+
+.pokemon-image {
+  width: 400px;
+  text-align: center;
+}
+
+.pokemon-details-full figure{
+  text-align: center;
+}
+
+.pokemon-details-full {
+  text-align: left;
+}
+
+.pokemon-details-full label{
+  font-weight: bold;
+}
