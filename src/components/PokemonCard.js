@@ -1,16 +1,39 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { fetchApi } from "../api";
 
-export const PokemonCard = ({ url, name }) => {
+export const PokemonCard = ({ url, name, searchCriteria }) => {
+  const history = useHistory();
   const [details, setDetails] = useState({});
+  const [isMatch, setIsMatch] = useState(true);
 
-  useEffect(async () => {
-    const details = await fetchApi(url);
-    setDetails(details);
+  useEffect(() => {
+    async function getDetails() {
+      const details = await fetchApi(url);
+      setDetails(details);
+    }
+    getDetails();
   }, [url]);
 
+  useEffect(() => {
+    const isMatch =
+      details?.name?.toLowerCase().includes(searchCriteria) ||
+      details?.abilities?.some((ab) =>
+        ab.ability.name.toLowerCase().includes(searchCriteria)
+      );
+    setIsMatch(isMatch);
+  }, [searchCriteria, details]);
+
+  const showDetails = () => {
+    history.push('/details', {
+      details
+    })
+  }
+
+  if (!isMatch) return null;
+
   return (
-    <div className="pokemon-card">
+    <div className="pokemon-card" onClick={showDetails}>
       <div>
         <figure>
           <img
@@ -37,7 +60,7 @@ export const PokemonCard = ({ url, name }) => {
             {details.abilities?.map((ab, i, arr) => (
               <span key={ab.ability.name}>
                 {ab.ability.name}
-                {(i + 1) === arr.length ? "" : ", "}
+                {i + 1 === arr.length ? "" : ", "}
               </span>
             ))}
           </div>
