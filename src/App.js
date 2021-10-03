@@ -1,4 +1,5 @@
 import "./App.css";
+import { PokemonList } from "./containers/PokemonList";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
           {/* <SearchBar /> */}
         </nav>
       </header>
-      {/* <PokemonList /> */}
+      <PokemonList />
     </div>
   );
 }
