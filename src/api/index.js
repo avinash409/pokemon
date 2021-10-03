@@ -9,7 +9,7 @@ export const fetchApi = async (url, params = {}, options = {}) => {
   return await response.json();
 };
 
-export const getPokemons = async (limit = 20, offset = 0) => {
+export const getPokemons = async (limit = 10, offset = 0) => {
   return await fetchApi(pokemonV2Endpoint, {
     limit,
     offset,
