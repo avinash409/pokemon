@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { PokeMonDetails } from "./components/PokemanDetails";
+import { PokemonDetails } from "./components/PokemonDetails";
 import { PokemonList } from "./containers/PokemonList";
 import { usePokemon } from "./hooks/usePokemon";
 import { pokemonContext } from "./context/pokemonContext";
@@ -13,7 +13,7 @@ function App() {
         <Router>
           <Switch>
             <Route path="/details">
-              <PokeMonDetails />
+              <PokemonDetails />
             </Route>
             <Route path="/">
               <PokemonList />

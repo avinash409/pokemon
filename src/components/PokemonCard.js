@@ -11,7 +11,7 @@ export const PokemonCard = ({ url, name, searchCriteria }) => {
 
   useMemo(() => {
     const newList = pokemonState.results.map((pok) => {
-      if (pok.name === details.name) {
+      if (pok.name === details?.name) {
         pok.abilities = details;
       }
       return pok;
@@ -83,15 +83,15 @@ export const PokemonCard = ({ url, name, searchCriteria }) => {
           </div>
           <div>
             <label>Height:</label>
-            {details.height}
+            {details?.height}
           </div>
           <div>
             <label>Weight:</label>
-            {details.weight}
+            {details?.weight}
           </div>
           <div>
             <label>Abilities:</label>
-            {details.abilities?.map((ab, i, arr) => (
+            {details?.abilities?.map((ab, i, arr) => (
               <span key={ab.ability.name}>
                 {ab.ability.name}
                 {i + 1 === arr.length ? "" : ", "}
