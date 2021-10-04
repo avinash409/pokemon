@@ -3,10 +3,10 @@
 }
 
 .pokemon-container {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  grid-template-columns: auto auto auto auto auto;
   padding: 10px;
 }
 
@@ -14,14 +14,29 @@
   border: 5px solid #fee;
   border-radius: 5px;
   box-shadow: 10px 5px 5px #333;
+  max-width: fit-content;
 }
 
 .pokemon-image-thumb {
-  width: 200px;
+  width: 240px;  
+}
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .pokemon-image-thumb {
+    width: 320px;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1024px) {
+  .pokemon-image-thumb {
+    width: 300px;
+  }
 }
 
 .pagination {
   display: flex;
+  clear: both;
   justify-content: center;
 }
 
@@ -33,6 +48,10 @@ figure {
 .pokemon-details {
   text-align: left;
   background-color: #fef0f0;
+}
+
+.pokemon-details div{
+  max-width: 240px;
 }
 
 .pokemon-card label{

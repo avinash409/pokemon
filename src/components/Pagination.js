@@ -11,14 +11,30 @@ export const Pagination = ({
 
   return (
     <div className="pagination">
-      <div>
-        {previous && <button onClick={() => navigatePage(-1)}>Previous</button>}
-        <span>
-          Results {offset} - {Number(offset) + Number(limit)} of {count}
-        </span>
-        {next && <button onClick={() => navigatePage(1)}>Next</button>}
+      <div className="page-item">
+        <button
+          disabled={!previous}
+          className="page-link btn"
+          onClick={() => navigatePage(-1)}
+        >
+          &lt; Previous
+        </button>
       </div>
-      <select onChange={updateLimit}>
+      <div className="page-item">
+        <div className="page-link">
+          {offset} - {Number(offset) + Number(limit)} of {count}
+        </div>
+      </div>
+      <div className="page-item">
+        <button
+          disabled={!next}
+          className="page-link btn"
+          onClick={() => navigatePage(1)}
+        >
+          Next &gt;
+        </button>
+      </div>
+      <select className="page-link" onChange={updateLimit}>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}

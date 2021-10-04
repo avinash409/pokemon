@@ -1,29 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { getPokemons } from "../api";
 import { Pagination } from "../components/Pagination";
 import { PokemonCard } from "../components/PokemonCard";
 import { SearchBar } from "../components/SearchBar";
-
-const sortOptions = [
-  {
-    display: "Name",
-    field: "name",
-  },
-  {
-    display: "Height",
-    field: "height",
-  },
-  {
-    display: "Weight",
-    field: "weight",
-  },
-];
+import { pokemonContext } from "../context/pokemonContext";
 
 export const PokemonList = () => {
+  const { pokemonState, setCurrentState } = useContext(pokemonContext);
   const [list, setList] = useState({});
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(10);
+  const [sortBy, setSort] = useState();
   const [searchCriteria, setSearchCriteria] = useState("");
+
+  useMemo(() => {
+    const newState = { ...pokemonState, ...list };
+    setCurrentState(newState);
+  }, [list]);
 
   useEffect(async () => {
     async function getList() {
@@ -52,8 +45,18 @@ export const PokemonList = () => {
 
   const sortList = (e) => {
     const sortBy = e.target.value;
-    const sortedList = list?.results?.sort((a, b) => a[sortBy] - b[sortBy]);
-    setList(sortedList);
+    setSort(sortBy);
+  };
+
+  const sort = (list) => {
+    if (sortBy) {
+      const sortedList = list?.sort((a, b) => {
+        return a?.abilities?.[sortBy] - b.abilities?.[sortBy];
+      });
+      return sortedList;
+    } else {
+      return list;
+    }
   };
 
   return (
@@ -61,21 +64,15 @@ export const PokemonList = () => {
       <Pagination
         offset={offset}
         limit={limit}
-        previous={list?.previous}
-        next={list?.next}
-        count={list?.count}
+        previous={pokemonState?.previous}
+        next={pokemonState?.next}
+        count={pokemonState?.count}
         navigatePage={navigatePage}
         updateLimit={updateLimit}
       />
-      <SearchBar searchPokemon={searchPokemon} />
-      <select onChange={sortList}>
-        <option>Sort By</option>
-        {sortOptions.map((opt) => (
-          <option key={opt.field} value={opt.field}>{opt.display}</option>
-        ))}
-      </select>
+      <SearchBar searchPokemon={searchPokemon} sortList={sortList} />
       <div className="pokemon-container">
-        {list?.results?.map((pokemon) => (
+        {sort(pokemonState?.results)?.map((pokemon) => (
           <PokemonCard
             key={pokemon.name}
             {...pokemon}
@@ -86,9 +83,9 @@ export const PokemonList = () => {
       <Pagination
         offset={offset}
         limit={limit}
-        previous={list?.previous}
-        next={list?.next}
-        count={list?.count}
+        previous={pokemonState?.previous}
+        next={pokemonState?.next}
+        count={pokemonState?.count}
         navigatePage={navigatePage}
         updateLimit={updateLimit}
       />
