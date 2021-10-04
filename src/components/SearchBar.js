@@ -15,7 +15,7 @@ const sortOptions = [
 
 export const SearchBar = ({ searchPokemon, sortList }) => {
   return (
-    <div className="search-bar col-4">
+    <div className="search-bar col-4" data-testid="search-container">
       <select
       className="col-5"
         onChange={sortList}

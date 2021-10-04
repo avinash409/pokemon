@@ -10,7 +10,7 @@ export const Pagination = ({
   const options = [10, 20, 50];
 
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid="pagination-container">
       <div className="page-item">
         <button
           disabled={!previous}

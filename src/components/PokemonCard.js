@@ -34,12 +34,14 @@ export const PokemonCard = ({ url, name, searchCriteria }) => {
   }, [url]);
 
   useEffect(() => {
-    const isMatch =
-      details?.name?.toLowerCase().includes(searchCriteria) ||
-      details?.abilities?.some((ab) =>
-        ab.ability.name.toLowerCase().includes(searchCriteria)
-      );
-    setIsMatch(isMatch);
+    if (searchCriteria || searchCriteria === "") {
+      const isMatch =
+        details?.name?.toLowerCase().includes(searchCriteria) ||
+        details?.abilities?.some((ab) =>
+          ab.ability.name.toLowerCase().includes(searchCriteria)
+        );
+      setIsMatch(isMatch);
+    }
   }, [searchCriteria, details]);
 
   const showDetails = () => {
@@ -62,6 +64,7 @@ export const PokemonCard = ({ url, name, searchCriteria }) => {
     <div
       tabIndex={0}
       className="pokemon-card"
+      data-testid="pokemon-card"
       onClick={showDetails}
       onKeyUp={navigateByKey}
     >

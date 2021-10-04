@@ -13,11 +13,6 @@ export const PokemonList = () => {
   const [sortBy, setSort] = useState();
   const [searchCriteria, setSearchCriteria] = useState("");
 
-  useMemo(() => {
-    const newState = { ...pokemonState, ...list };
-    setCurrentState(newState);
-  }, [list]);
-
   useEffect(async () => {
     async function getList() {
       const list = await getPokemons(limit, offset);
@@ -25,6 +20,11 @@ export const PokemonList = () => {
     }
     getList();
   }, [limit, offset]);
+
+  useMemo(() => {
+    const newState = { ...pokemonState, ...list };
+    setCurrentState(newState);
+  }, [list]);
 
   const navigatePage = async (type) => {
     setOffset((offset) => {
@@ -71,7 +71,7 @@ export const PokemonList = () => {
         updateLimit={updateLimit}
       />
       <SearchBar searchPokemon={searchPokemon} sortList={sortList} />
-      <div className="pokemon-container">
+      <div className="pokemon-container" data-testid="pokemon-container">
         {sort(pokemonState?.results)?.map((pokemon) => (
           <PokemonCard
             key={pokemon.name}
