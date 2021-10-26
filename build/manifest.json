@@ -1,0 +1,11 @@
+{
+  "short_name": "Pokemon App",
+  "name": "Pokemon",
+  "icons": [
+    
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
